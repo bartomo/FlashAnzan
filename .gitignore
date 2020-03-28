@@ -1,0 +1,6 @@
+﻿#
+venv/
+mysite/
+kivy_venv/
+__pycache__/
+.idea/

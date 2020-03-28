@@ -1,0 +1,189 @@
+#_*_ coding: shift-jis _*_
+# author:bartomo
+#: import main kivy_main
+
+TextWidget:
+#ImageWidget:
+<MyButton@Button>
+    font_size: 48
+
+<ImageWidget>:
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+
+        Image:
+            source: root.source # './image/sample.jpg'
+
+#        Label:
+#            font_size: 68
+#            color: root.color
+#            text: root.text
+#            size_hint_y: 0.7
+#        Label:
+#            text: "this is written"
+#            color: 0,1,0,1
+#            size_hint_y: 1
+#
+#            canvas.before:
+#                Color:
+#                    rgba: 0, 1, 1, 1
+#                Rectangle:
+#                    pos: self.pos
+#                    size: self.size
+#
+#        Label:
+#            text: "by Kivy Language"
+#            color: 0,0,1,1
+#            size_hint_y: 0.5
+        BoxLayout:
+            size_hint_y: 0.3
+            padding:20,30,20,10
+            MyButton:
+                id: button1
+                text: "グラハン"
+                font_size: 30
+                on_release: root.buttonClicked()
+
+            MyButton:
+                id: button2
+                text: "テイクオフ"
+                font_size: 30
+                on_release: root.buttonClicked2()
+
+            MyButton:
+                id: button3
+                text: "零"
+                # font_size: 48
+                on_release: root.buttonClicked3()
+
+#        BoxLayout:
+#            orientation = 'vertical'
+<TextWidget>:
+    BoxLayout:
+        orientation: "vertical"
+        size: root.size
+
+        Label:
+            id:label1
+            font_size: 68
+            text: root.text
+
+        BoxLayout:
+            orientation: "horizontal"
+
+
+            TextInput:
+                id: text_box
+                size_hint_x: 70
+                font_size: 68
+                on_text_validate: root.buttonClickedText()
+
+            Button:
+                id: button1
+                size_hint_x: 30
+                text: "OK"
+                font_size: 68
+                on_press: main.buttonClickedText()
+
+<MyWidget>
+    rows: 2
+    cols: 2
+    size: root.size
+
+    Button:
+        text: "Button1"
+    Button:
+        text: "Button1"
+    Button:
+        text: "Button1"
+    Button:
+        text: "Button1"
+
+<MusicPlayer>
+    status: status_text
+#    audio_button: audio_button
+    play_button: play_button
+    stop_button: stop_button
+    time_bar: time_bar
+    time_text: time_text
+    volume_bar: volume_bar
+    volume_text: volume_text
+
+    orientation: 'vertical'
+    padding: 20
+
+    Label:
+        size_hint: 1, .9
+        id: status_text
+        text: ""
+        center: root.center
+        color: 1, 0, 0, 1
+
+    BoxLayout:
+        size_hint: 1, .1
+
+        Label:
+            id: time_text
+            size_hint: 0.1, 1
+            text: '0:00/0:00'
+
+        Slider:
+            id: time_bar
+            size_hint: 0.9, 1
+            max: 100
+            value: 0
+            on_value :root.time_change(self.value)
+
+
+    BoxLayout:
+        size_hint:1, .1
+        Button:
+            id: play_button
+            text: 'Interval'
+            background_color: 0, .5, 1, 1
+            on_release: root.play_or_stop()
+
+        Button:
+            id: stop_button
+            text: 'Stop'
+            background_color: 0, .5, 1, 1
+            on_release: root.stop()
+
+        Label:
+            id: volume_text
+            text: '50'
+
+        Slider:
+            id: volume_bar
+            max: 100
+            value: 50
+            on_value: root.volume_change(self.value)
+
+        Button:
+            text: 'Choose File'
+            on_release: root.choose()
+
+
+
+
+<PopupChooseFile>
+    canvas:
+        Color:
+            rgba: 0, 0, .4, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    orientation: "vertical"
+
+    FileChooserIconView:
+        size_hint: 1, .9
+        path: root.current_dir
+        on_submit: root.select(self.selection[0])
+    BoxLayout:
+        size_hint: 1, .1
+        Button:
+            text: "Cancel"
+            background_color: 0, .5, 1, 1
+            on_release: root.cancel()
